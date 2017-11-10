@@ -2,8 +2,10 @@ package com.sbsromero.section_04_realm.app;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.sbsromero.section_04_realm.models.Board;
 import com.sbsromero.section_04_realm.models.Note;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,16 +26,26 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         setUpRealmConfig();
 
         Realm realm = Realm.getDefaultInstance();
         BoardId = getIdByTable(realm, Board.class);
         NoteId = getIdByTable(realm, Note.class);
+
+ /*       //Stetho
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                        .build());*/
+
         realm.close();
     }
 
     private void setUpRealmConfig() {
-        Realm.init(getApplicationContext());
+        Realm.init(this);
+
         RealmConfiguration config = new RealmConfiguration
                 .Builder()
                 .deleteRealmIfMigrationNeeded()
