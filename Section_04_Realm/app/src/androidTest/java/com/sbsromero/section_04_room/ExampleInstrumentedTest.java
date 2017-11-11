@@ -1,4 +1,4 @@
-package com.sbsromero.section_04_realm;
+package com.sbsromero.section_04_room;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

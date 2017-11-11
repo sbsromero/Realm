@@ -1,4 +1,4 @@
-package com.sbsromero.section_04_realm.activities;
+package com.sbsromero.section_04_room.activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,23 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sbsromero.section_04_realm.R;
-import com.sbsromero.section_04_realm.models.Board;
-
-import io.realm.Realm;
+import com.sbsromero.section_04_room.R;
 
 public class BoardActivity extends AppCompatActivity {
 
     private FloatingActionButton btnFabAddBoard;
-    private Realm realm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-
-        //Db realm
-       realm = Realm.getDefaultInstance();
 
         btnFabAddBoard = (FloatingActionButton) findViewById(R.id.fabAddBoard);
         btnFabAddBoard.setOnClickListener(new View.OnClickListener() {
@@ -40,13 +34,6 @@ public class BoardActivity extends AppCompatActivity {
     /**CRUD Actions**/
     private void createNewBoard(final String boardName) {
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Board board = new Board(boardName);
-                realm.copyToRealm(board);
-            }
-        });
     }
 
     /**Dialogs**/
